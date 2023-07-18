@@ -1,0 +1,59 @@
+name: hello
+env: dev
+version: 0.1.0
+auto_migrate: true
+
+http:
+  listen: :7771
+  validate_trans: zh
+
+
+db:
+  - addr: host=127.0.0.1 user=postgres password=root dbname=auth port=5432
+      sslmode=disable TimeZone=Asia/Shanghai
+    pwd: root
+    type: postgres
+    user: root
+  - addr: 127.0.0.1:6379
+    pwd: ""
+    type: redis
+    user: ""
+
+broker:
+  addr: amqp://coco:kk123123123@127.0.0.1:5672/
+  pwd: ""
+  type: rabbitmq
+  user: ""
+
+# otel config
+collect:
+  log:
+    # DebugLevel = -1, InfoLevel = 0, WarnLevel = 1 ErrorLevel = 2, DPanicLevel = 3, PanicLevel = 4, FatalLevel = 5
+    level: -1
+    # log file name
+    file_name: admin
+    # log print prefix
+    prefix: "[PHANES]"
+    # will buffer up to 4096 kilobytes of logs,
+    # waiting at most 10 seconds between flushes.
+    buffer_size: 4096 # kb, default 256kb
+    interval: 10 # second, default 30s
+  metric:
+    # metrics will listen a http port
+    # example: localhost:2223/metrics
+    listen: ":2223"
+  trace:
+    addr: "http://localhost:14268/api/traces"
+
+traefik:
+  # reverse proxy type support: tcp udp http grpc(h2c)
+  type: tcp
+  # support "||" or "&&"
+  rule: "&&"
+  # is enable tls
+  tls: true
+  domain: test.com
+  # is enable traefik reverse proxy
+  enabled: true
+  # match prefix
+  # prefix:

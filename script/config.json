@@ -1,0 +1,57 @@
+{
+  "name": "auth",
+  "env": "dev",
+  "version": "0.1.0",
+  "http_listen": ":7771",
+
+  "collect": {
+    "log": {
+      "prefix": "【Phanes】",
+      "file_name": "admin",
+      "redis": {
+        "redis_key": "log_list",
+        "addr": "",
+        "pwd": ""
+      }
+    },
+    "trace": {
+      "addr": ""
+    },
+    "metric": {
+      "addr": ""
+    }
+  },
+
+  "db": [
+    {
+      "type": "postgres",
+      "addr": "host=127.0.0.1 user=root password=root dbname=auth port=5432 sslmode=disable TimeZone=Asia/Shanghai",
+      "user": "root",
+      "pwd": "root"
+    },
+    {
+        "type": "redis",
+        "addr": "127.0.0.1:6379",
+        "user": "",
+        "pwd": ""
+    }
+  ],
+
+  "proxy": {
+    "domain": "http://127.0.0.1",
+    "prefix": "/auth"
+  },
+
+  "broker": {
+    "type": "rabbitmq",
+    "addr": "amqp://coco:kk123123123@127.0.0.1:5672/",
+    "user": "",
+    "pwd": ""
+  },
+
+  "traefik": {
+    "enabled": false,
+    "domain": "test.com",
+    "prefix": "/auth"
+  }
+}
